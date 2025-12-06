@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import project1 from '@/assets/project-1.jpg';
 import project2 from '@/assets/project-2.jpg';
 import project3 from '@/assets/project-3.jpg';
@@ -167,10 +168,11 @@ export const ProjectsCarousel = () => {
               <div className="glass-card overflow-hidden">
                 {/* Project Image */}
                 <div className="relative h-44 md:h-52 overflow-hidden">
-                  <img
-                    src={project.image.src}
+                  <Image
+                    src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                     style={{ filter: 'grayscale(30%)' }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />

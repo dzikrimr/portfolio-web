@@ -2,12 +2,21 @@
 import { useEffect, useState, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import portraitImage from '@/assets/portrait.png';
 
 export const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHoveringName, setIsHoveringName] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
+
+  const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -57,11 +66,14 @@ export const HeroSection = () => {
             transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
-          <div className="relative">
-            <img
-              src={portraitImage.src}
+          <div className="relative w-[280px] md:w-[380px] lg:w-[460px] h-[373px] md:h-[507px] lg:h-[614px]">
+            <Image
+              src={portraitImage}
               alt="Dzikri Murtadlo"
-              className="w-[280px] md:w-[380px] lg:w-[460px] h-auto object-cover select-none
+              fill
+              priority
+              sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 460px"
+              className="object-cover select-none
                          grayscale contrast-[1.05] brightness-95
                          [mask-image:linear-gradient(to_bottom,black_50%,transparent_95%)]"
               draggable={false}
@@ -90,6 +102,7 @@ export const HeroSection = () => {
         <div className="mt-10 flex items-center justify-center gap-4 flex-wrap relative z-30">
           <a
             href="#projects"
+            onClick={(e) => handleScrollClick(e, '#projects')}
             className="px-6 py-3 rounded-full text-xs uppercase tracking-wider font-bold
                        bg-foreground text-background hover:bg-gray-200
                        transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
@@ -98,6 +111,7 @@ export const HeroSection = () => {
           </a>
           <a
             href="#contact"
+            onClick={(e) => handleScrollClick(e, '#contact')}
             className="px-6 py-3 rounded-full text-xs uppercase tracking-wider font-bold
                        border border-border text-foreground
                        hover:bg-accent hover:border-accent transition-all duration-300"
@@ -111,6 +125,7 @@ export const HeroSection = () => {
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
         <a
           href="#projects"
+          onClick={(e) => handleScrollClick(e, '#projects')}
           className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
         >
           <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>

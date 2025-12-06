@@ -29,6 +29,14 @@ export const FloatingNavbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav 
       className={cn(
@@ -60,6 +68,7 @@ export const FloatingNavbar = () => {
             <a
               key={item.href}
               href={item.href}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="nav-link whitespace-nowrap text-xs font-normal uppercase tracking-wider"
               style={{
                 opacity: isExpanded || isScrolled ? 1 : 0,
@@ -112,7 +121,10 @@ export const FloatingNavbar = () => {
               <a
                 key={item.href}
                 href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  handleNavClick(e, item.href);
+                  setIsMobileMenuOpen(false);
+                }}
                 className={cn(
                   "px-4 py-3 rounded-lg text-xs uppercase tracking-wider",
                   "text-muted-foreground hover:text-foreground",
