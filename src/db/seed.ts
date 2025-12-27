@@ -1,8 +1,14 @@
+import 'dotenv/config';
 import { db } from './index';
 import { projects, experiences, achievements } from './schema';
 
 const seed = async () => {
   console.log('Seeding database...');
+
+  // Clear existing data
+  await db.delete(achievements);
+  await db.delete(experiences);
+  await db.delete(projects);
 
   // Projects
   await db.insert(projects).values([
@@ -106,58 +112,49 @@ const seed = async () => {
   // Achievements
   await db.insert(achievements).values([
     {
-      title: "1st Place Hackathon",
-      event: "National Space Code 2023",
-      description: "Secured the top spot in the National Space Code Hackathon by developing an innovative cargo tracking algorithm.",
-      date: "2023-11-15",
-      image: '/assets/project-1.jpg',
-      rank: "Winner",
-      tier: "gold"
+      title: "2nd Winner ITechnoCup Front End Dev",
+      event: "ITechnoCup - Politeknik Negeri Jakarta",
+      description: "SlotReality as an interactive web platform serves as a critical digital literacy tool to expose the dangers and psychological traps of online gambling.",
+      date: "2025-10-01",
+      image: "/assets/project-1.jpg",
+      rank: "2nd Winner",
+      tier: "silver"
     },
     {
-      title: "Best UI/UX Design",
-      event: "Interstellar Design Challenge",
-      description: "Awarded for creating the most intuitive and accessible navigation interface for courier drones.",
-      date: "2023-08-20",
-      image: '/assets/project-2.jpg',
-      rank: "Special Award",
-      tier: "special"
-    },
-    {
-      title: "Algorithm Finalist",
-      event: "Galactic Optimization Cup",
-      description: "Reached the final round in a competitive algorithm contest focused on fuel efficiency and route planning.",
-      date: "2024-01-10",
-      image: '/assets/project-3.jpg',
-      rank: "Top 10 Finalist",
+      title: "3rd Winner HOLOGY 8.0 of Software Development",
+      event: "HOLOGY 8.0 - Universitas Brawijaya",
+      description: "BabyBloom, an AI-powered parenting assistant designed to bridge the gap between technology and childcare. My role involved architecting a hybrid AI system and real-time monitoring infrastructure.",
+      date: "2025-10-01",
+      image: "/assets/project-2.jpg",
+      rank: "3rd Winner",
       tier: "bronze"
     },
     {
-      title: "Open Source Hero",
-      event: "GitHub Universe",
-      description: "Recognized for significant contributions to open source space navigation libraries.",
-      date: "2024-02-15",
-      image: '/assets/project-1.jpg',
-      rank: "Community Choice",
-      tier: "special"
+      title: "Finalist Hackathon x IDCloudHost & ILCS of Informatics Festival",
+      event: "Informatics Festival - Universitas Padjajaran",
+      description: "PIER (Pelindo Integrated Electronic Repository) developed to solve real-world contract management challenges at PT ILCS (Pelindo Group). This AI-powered web platform automates the entire contract lifecycle, from drafting and review to risk monitoring.",
+      date: "2025-10-01",
+      image: "/assets/project-3.jpg",
+      rank: "Finalist",
+      tier: "default"
     },
     {
-      title: "Fastest Deployment",
-      event: "DevOps Speed Run",
-      description: "Set a new record for automated deployment pipelines in a zero-gravity simulation environment.",
-      date: "2024-03-01",
-      image: '/assets/project-2.jpg',
-      rank: "Speed Record",
-      tier: "silver"
+      title: "3rd Winner Dekan Cup Startup Academy Faculty of Computer Science 2023",
+      event: "DEKAN CUP - Universitas Brawijaya",
+      description: "The Development of the 'Productify' Application to Prevent Social Media Addiction in Indonesian Society.",
+      date: "2023-10-01",
+      image: "/assets/project-1.jpg",
+      rank: "3rd Winner",
+      tier: "bronze"
     },
     {
-      title: "Security Guardian",
-      event: "Cyber Defense Initiative",
-      description: "Identified and patched critical vulnerabilities in the station's communication protocols.",
-      date: "2024-04-12",
-      image: '/assets/project-3.jpg',
-      rank: "Security Award",
-      tier: "silver"
+      title: "Finalist GEMASTIK XVIII Software Development",
+      event: "GEMASTIK XVIII - Kemendikbudristek",
+      description: "PrediAI is an AI-driven healthcare innovation designed for non-invasive early screening of diabetes through image analysis of tongue and nail. Built using Jetpack Compose, Firebase, and FastAPI.",
+      date: "2025-10-01",
+      image: "/assets/project-2.jpg",
+      rank: "Finalist",
+      tier: "default"
     },
   ]);
 
