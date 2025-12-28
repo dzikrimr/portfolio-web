@@ -108,7 +108,7 @@ export const HeroSection = () => {
 
             <span className="absolute inset-0 bg-background/80 blur-xl rounded-full -z-10" />
             <TextType
-              text="AI & Mobile Developer Enthusiast"
+              text="AI & Mobile Dev Enthusiast"
               typingSpeed={75}
               pauseDuration={1500}
               showCursor={true}
