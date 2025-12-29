@@ -341,7 +341,7 @@ export const ProjectsSection = () => {
                                     src={getAllImages(project)[currentImageIndex]}
                                     alt={`${project.title} - Image ${currentImageIndex + 1}`}
                                     fill
-                                    className="object-cover"
+                                    className="object-contain"
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center bg-muted">
