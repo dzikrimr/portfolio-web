@@ -123,7 +123,7 @@ export const HeroSection = () => {
 
         <div className="mt-10 flex items-center justify-center gap-4 flex-wrap relative z-30">
           <a
-            href="https://drive.google.com/uc?export=download&id=18VdX2JFsMU428zYuRoKvVxWWmCq2vWTx"
+            href={process.env.CV_DOWNLOAD_URL || "#"}
             className="px-6 py-3 rounded-full text-xs uppercase tracking-wider font-bold
                        bg-foreground text-background hover:bg-gray-200
                        transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
