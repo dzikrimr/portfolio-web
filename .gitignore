@@ -28,8 +28,8 @@
 /assets
 
 # database
-seed.ts
 /drizzle
+src/db/seed.ts
 
 # debug
 npm-debug.log*
