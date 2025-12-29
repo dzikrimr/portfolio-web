@@ -195,9 +195,9 @@ export const ContactSection = () => {
         </p>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center px-4">
         <div
-          className="relative w-[280px] sm:w-[320px] md:w-[340px] h-[580px]"
+          className="relative w-full max-w-[340px] h-[500px] sm:h-[580px]"
           data-aos="fade-up"
         >
           <div className="relative h-full rounded-[2.5rem] border-[6px] border-foreground/90 bg-background shadow-2xl">
@@ -216,20 +216,21 @@ export const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="px-5 py-4 border-b border-border/30 bg-card/50 flex items-center gap-4 shrink-0">
-                <div className="w-10 h-10 rounded-full bg-accent/50 flex items-center justify-center text-xs text-foreground/70">
+              <div className="px-3 sm:px-5 py-3 sm:py-4 border-b border-border/30 bg-card/50 flex items-center gap-3 sm:gap-4 shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-accent/50 flex items-center justify-center text-xs text-foreground/70 flex-shrink-0">
                   DM
                 </div>
-                <div className="flex-1">
-                  <p className="text-sm text-foreground">Dzikri Murtadlo</p>
-                  <p className="text-[9px] text-muted-foreground italic">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-foreground truncate">Dzikri Murtadlo</p>
+                  <p className="text-[9px] text-muted-foreground italic truncate">
                     online
                   </p>
                 </div>
                 {step === "done" && (
                   <button
                     onClick={resetChat}
-                    className="text-muted-foreground hover:text-foreground border border-border/30 p-1.5 rounded transition-colors cursor-pointer"
+                    className="text-muted-foreground hover:text-foreground border border-border/30 p-1.5 sm:p-1.5 rounded transition-colors cursor-pointer touch-manipulation min-w-[36px] min-h-[36px] flex items-center justify-center active:scale-95"
+                    aria-label="Reset conversation"
                   >
                     <svg
                       width="14"
@@ -243,7 +244,7 @@ export const ContactSection = () => {
                 )}
               </div>
 
-              <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-background/30 scrollbar-hide">
+              <div className="flex-1 overflow-y-auto p-3 sm:p-5 space-y-3 sm:space-y-4 bg-background/30 scrollbar-hide">
                 {messages.map((msg, idx) => (
                   <div
                     key={msg.id}
@@ -254,7 +255,7 @@ export const ContactSection = () => {
                   >
                     <div
                       className={cn(
-                        "max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed",
+                        "max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-sm leading-relaxed",
                         msg.from === "me"
                           ? "bg-foreground/90 text-background rounded-br-sm"
                           : "bg-accent/40 text-foreground rounded-bl-sm"
@@ -272,7 +273,7 @@ export const ContactSection = () => {
 
                 {isTyping && (
                   <div className="flex justify-start animate-in fade-in duration-200">
-                    <div className="bg-accent/40 rounded-2xl rounded-bl-sm px-5 py-3 flex gap-1.5">
+                    <div className="bg-accent/40 rounded-2xl rounded-bl-sm px-4 sm:px-5 py-2.5 sm:py-3 flex gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-muted-foreground/60 animate-bounce" />
                       <span className="w-2 h-2 rounded-full bg-muted-foreground/60 animate-bounce [animation-delay:0.15s]" />
                       <span className="w-2 h-2 rounded-full bg-muted-foreground/60 animate-bounce [animation-delay:0.3s]" />
@@ -282,26 +283,31 @@ export const ContactSection = () => {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="p-4 border-t border-border/30 bg-card/40 shrink-0">
+              <div className="p-3 sm:p-4 border-t border-border/30 bg-card/40 shrink-0">
                 {step !== "done" ? (
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <input
                       type={step === "email" ? "email" : "text"}
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyDown={handleKeyDown}
                       placeholder={getPlaceholder()}
-                      className="flex-1 px-5 py-3 rounded-full text-sm bg-background/40 border border-border/40 text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-foreground/20 transition-all"
+                      className="flex-1 px-3 sm:px-5 py-2.5 sm:py-3 rounded-full text-sm bg-background/40 border border-border/40 text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-foreground/20 transition-all min-h-[44px] sm:min-h-[48px] touch-manipulation"
+                      autoComplete={step === "email" ? "email" : "name"}
+                      autoCapitalize={step === "name" ? "words" : "off"}
+                      autoCorrect="off"
+                      spellCheck={step !== "email"}
                     />
                     <button
                       onClick={handleSend}
                       disabled={!inputValue.trim()}
                       className={cn(
-                        "w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all cursor-pointer",
+                        "w-11 h-11 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 transition-all cursor-pointer min-w-[44px] touch-manipulation active:scale-95",
                         inputValue.trim()
-                          ? "bg-foreground text-background"
+                          ? "bg-foreground text-background hover:bg-foreground/90"
                           : "bg-muted/50 text-muted-foreground/40 cursor-not-allowed"
                       )}
+                      aria-label="Send message"
                     >
                       <svg
                         width="20"
