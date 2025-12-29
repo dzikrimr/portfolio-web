@@ -418,18 +418,31 @@ export const ProjectsSection = () => {
                           </div>
                         </ScrollArea>
                         <div className="p-6 border-t border-border">
-                          <Link
-                            href={project.link && project.link.trim() !== '' && project.link !== '#' ? project.link : '/private-repo'}
-                            target={project.link && project.link.trim() !== '' && project.link !== '#' ? "_blank" : "_self"}
-                            rel={project.link && project.link.trim() !== '' && project.link !== '#' ? "noopener noreferrer" : undefined}
-                            className={cn(
-                              "inline-flex items-center gap-2 text-xs uppercase tracking-wider transition-colors duration-200",
-                              "text-foreground hover:text-gray-300 w-full justify-center cursor-pointer"
-                            )}
-                          >
-                            View Project
-                            <ExternalLink className="w-3 h-3" />
-                          </Link>
+                          {project.link && project.link.trim() !== '' && project.link !== '#' ? (
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={cn(
+                                "inline-flex items-center gap-2 text-xs uppercase tracking-wider transition-colors duration-200",
+                                "text-foreground hover:text-gray-300 w-full justify-center cursor-pointer"
+                              )}
+                            >
+                              View Project
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          ) : (
+                            <Link
+                              href="/private-repo"
+                              className={cn(
+                                "inline-flex items-center gap-2 text-xs uppercase tracking-wider transition-colors duration-200",
+                                "text-foreground hover:text-gray-300 w-full justify-center cursor-pointer"
+                              )}
+                            >
+                              View Project
+                              <ExternalLink className="w-3 h-3" />
+                            </Link>
+                          )}
                         </div>
                       </DialogContent>
                     </Dialog>
