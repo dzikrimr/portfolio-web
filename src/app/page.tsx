@@ -16,6 +16,7 @@ import { ContactSection } from '@/components/sections/ContactSection';
 import { Footer } from '@/components/Footer';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { MobileMenu } from '@/components/MobileMenu';
+import { IntroAnimation } from '@/components/IntroAnimation';
 
 const Index = () => {
   useEffect(() => {
@@ -33,8 +34,10 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-300">
-      <StarBackground />
+    <>
+      <IntroAnimation />
+      <div className="min-h-screen bg-background transition-colors duration-300">
+        <StarBackground />
       <FloatingNavbar />
       <div className="hidden md:block">
         <FloatingSocials />
@@ -53,7 +56,8 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 

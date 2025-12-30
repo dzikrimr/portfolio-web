@@ -831,4 +831,113 @@ html {
       transform: skew(0deg);
     }
   }
+
+  /* Intro Animation Styles */
+  .intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  .intro-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: hsl(var(--background));
+    filter: blur(20px);
+    opacity: 0;
+    animation: introBackgroundFadeIn 0.5s ease-out forwards;
+  }
+
+  .intro-favicon-container {
+    position: relative;
+    z-index: 1;
+    transform: scale(0);
+    opacity: 0;
+    animation: introFaviconEnter 0.8s ease-out forwards;
+  }
+
+  .intro-favicon {
+    width: 80px;
+    height: 80px;
+    animation: introFaviconPulse 2.2s ease-in-out;
+  }
+
+  /* Animation keyframes */
+  @keyframes introBackgroundFadeIn {
+    from {
+      opacity: 0;
+      filter: blur(20px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(20px);
+    }
+  }
+
+  @keyframes introFaviconEnter {
+    0% {
+      transform: scale(0) rotate(-180deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2) rotate(-90deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes introFaviconPulse {
+    0%, 100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scale(1.1);
+      filter: brightness(1.2);
+    }
+  }
+
+  /* Exit animations - triggered after 3 seconds */
+  .intro-overlay.exiting .intro-background {
+    animation: introBackgroundFadeOut 0.5s ease-in forwards;
+  }
+
+  .intro-overlay.exiting .intro-favicon-container {
+    animation: introFaviconExit 0.5s ease-in forwards;
+  }
+
+  @keyframes introBackgroundFadeOut {
+    from {
+      opacity: 1;
+      filter: blur(20px);
+    }
+    to {
+      opacity: 0;
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes introFaviconExit {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0) rotate(180deg);
+      opacity: 0;
+    }
+  }
 }
