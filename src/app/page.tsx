@@ -17,8 +17,11 @@ import { Footer } from '@/components/Footer';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { MobileMenu } from '@/components/MobileMenu';
 import { IntroAnimation } from '@/components/IntroAnimation';
+import { useLenis } from '@/hooks/use-lenis';
 
 const Index = () => {
+  useLenis(); 
+  
   useEffect(() => {
     window.scrollTo(0, 0);
 
