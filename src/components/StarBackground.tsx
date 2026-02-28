@@ -21,8 +21,10 @@ export const StarBackground = () => {
     let mouseInfluence = 100;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const width = document.documentElement.clientWidth;
+      const height = document.documentElement.clientHeight;
+      canvas.width = width;
+      canvas.height = height;
       initStars();
     };
 
@@ -131,7 +133,7 @@ export const StarBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0"
+      className="fixed inset-0 z-0 pointer-events-none"
       style={{ opacity: 0.6 }}
     />
   );

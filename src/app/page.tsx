@@ -28,8 +28,8 @@ const Index = () => {
     AOS.init({
       duration: 800,
       easing: 'ease-out-cubic',
-      once: false,
-      mirror: true,
+      once: true,
+      mirror: false,
       offset: 80,
       delay: 0,
       anchorPlacement: 'top-bottom',
@@ -39,7 +39,7 @@ const Index = () => {
   return (
     <>
       <IntroAnimation />
-      <div className="min-h-screen bg-background transition-colors duration-300">
+      <div className="h-auto bg-background transition-colors duration-300">
         <StarBackground />
       <FloatingNavbar />
       <div className="hidden md:block">
