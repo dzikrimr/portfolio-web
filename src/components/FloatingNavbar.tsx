@@ -37,7 +37,7 @@ export const FloatingNavbar = () => {
 
       scrollTimeoutRef.current = setTimeout(() => {
         setIsScrolling(false);
-      }, 1000);
+      }, 150);
     };
 
 

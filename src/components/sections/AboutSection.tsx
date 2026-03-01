@@ -51,10 +51,10 @@ export const AboutSection = () => {
           </h2>
           <div className="max-w-md text-muted-foreground leading-relaxed space-y-4">
             <div className="text-sm md:text-base">
-              <DecryptedText text="I am a software engineer focused on the intersection of Artificial Intelligence and Mobile Development. I build systems that don't just execute commands, but learn and adapt." animateOn="view" speed={30} maxIterations={10} sequential={true} />
+              <DecryptedText text="I am a software engineer focused on Artificial Intelligence, Backend Systems, and Mobile Development. I build scalable services and intelligent applications that don't just execute commands, but learn, adapt, and perform reliably in production environments." animateOn="view" speed={30} maxIterations={10} sequential={true} />
             </div>
             <div className="text-sm md:text-base">
-              <DecryptedText text="While my core lies in AI and Mobile, I maintain a versatile technical stack including Web and Blockchain, backed by a functional eye for clean, intuitive design." animateOn="view" speed={30} maxIterations={10} sequential={true} />
+              <DecryptedText text="My expertise spans backend architecture, API development, and mobile integration, supported by a versatile stack across web technologies and cloud deployment, with a strong emphasis on clean and maintainable system design." animateOn="view" speed={30} maxIterations={10} sequential={true} />
             </div>
           </div>
         </div>

@@ -14,6 +14,8 @@ export const TimelineSection = () => {
     {}
   );
 
+  const visibleCount = 5;
+
   useEffect(() => {
     getExperiences().then(setExperiences);
   }, []);
@@ -36,7 +38,9 @@ export const TimelineSection = () => {
           </h2>
         </div>
         <div data-aos="fade-up" data-aos-delay="150">
-          <div className="rounded-xl border border-border bg-card/50 overflow-hidden shadow-2xl">
+          <div 
+            className="rounded-xl border border-border bg-card/50 overflow-hidden shadow-2xl"
+          >
             <div className="flex items-center gap-3 px-4 py-3 border-b border-border/50 bg-card/80">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
@@ -49,8 +53,21 @@ export const TimelineSection = () => {
               <div className="w-12" />
             </div>
 
-            <div className="p-2 md:p-4 space-y-1 font-mono">
-              {experiences.map((exp, index) => (
+            <div 
+              className={cn(
+                "p-2 md:p-4 space-y-1 font-mono overflow-y-auto overflow-x-hidden max-h-[380px]",
+                "scrollbar-thin",
+                "[&::-webkit-scrollbar]:w-1.5",
+                "[&::-webkit-scrollbar-track]:bg-transparent",
+                "[&::-webkit-scrollbar-thumb]:bg-white/10",
+                "[&::-webkit-scrollbar-thumb]:rounded-full",
+                "[&::-webkit-scrollbar-thumb:hover]:bg-white/25",
+                "scrollbar-track-transparent",
+                "scrollbar-thumb-white/10"
+              )}
+              data-lenis-prevent
+            >
+              {experiences.slice(0, visibleCount).map((exp, index) => (
                 <div
                   key={exp.id || `${exp.year}-${index}`}
                   data-aos="fade-left"
@@ -199,6 +216,12 @@ export const TimelineSection = () => {
                   </div>
                 </div>
               ))}
+
+              {experiences.length > visibleCount && (
+                <div className="px-4 py-2 flex items-center gap-3 opacity-40">
+                  <span className="text-xs text-primary/50">+{experiences.length - visibleCount} more items...</span>
+                </div>
+              )}
 
               <div className="px-4 py-2 flex items-center gap-3 opacity-40">
                 <span className="text-xs text-primary/50">$</span>

@@ -108,13 +108,15 @@ export const HeroSection = () => {
 
             <span className="absolute inset-0 bg-background/80 blur-xl rounded-full -z-10" />
             <TextType
-              text="AI & Mobile Dev Enthusiast"
+              text="Software Engineering Enthusiast"
               typingSpeed={75}
               pauseDuration={1500}
+              initialDelay={3500}
               showCursor={true}
               cursorCharacter="_"
               loop={false}
               hideCursorWhileTyping={false}
+              startOnVisible={true}
               className="text-foreground"
             />
           </div>
