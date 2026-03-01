@@ -35,23 +35,23 @@ export const TimelineSection = () => {
         </div>
         <div data-aos="fade-up" data-aos-delay="150">
           <div 
-            className="rounded-xl border border-border bg-card/50 overflow-hidden shadow-2xl"
+            className="rounded-xl border border-border bg-card/50 overflow-hidden shadow-2xl mx-2 md:mx-0"
           >
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-border/50 bg-card/80">
+            <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 border-b border-border/50 bg-card/80">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
                 <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
               </div>
-              <span className="text-[10px] text-muted-foreground tracking-wider flex-1 text-center font-mono">
+              <span className="text-[10px] text-muted-foreground tracking-wider flex-1 text-center font-mono truncate px-1">
                 career.log
               </span>
-              <div className="w-12" />
+              <div className="w-8 md:w-12" />
             </div>
 
             <div 
               className={cn(
-                "p-2 md:p-4 space-y-1 font-mono overflow-y-auto overflow-x-hidden max-h-[400px]",
+                "p-3 md:p-4 space-y-1 font-mono overflow-y-auto overflow-x-hidden max-h-[50vh] md:max-h-[400px]",
                 "scrollbar-thin",
                 "[&::-webkit-scrollbar]:w-1.5",
                 "[&::-webkit-scrollbar-track]:bg-transparent",

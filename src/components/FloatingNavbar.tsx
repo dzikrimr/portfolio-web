@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -130,6 +130,7 @@ export const FloatingNavbar = () => {
       </div>
 
 
+      {/* Mobile: Thin gray line like desktop */}
       <div className="md:hidden">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -139,17 +140,19 @@ export const FloatingNavbar = () => {
             isMobileMenuOpen ? "w-[280px]" : "w-[80px]"
           )}
         >
+          {/* Thin gray line like desktop - visible when menu is closed */}
+          {!isMobileMenuOpen && (
+            <div className="w-8 h-[4px] bg-white/20 rounded-full" />
+          )}
+          
+          {/* Menu content - visible when menu is open */}
           <div className={cn(
-            "flex items-center justify-between w-full px-6 transition-all duration-300",
+            "absolute inset-0 flex items-center justify-between px-6 transition-all duration-300",
             isMobileMenuOpen ? "opacity-100" : "opacity-0 invisible"
           )}>
             <span className="text-[10px] font-bold tracking-widest text-white/70 uppercase">Menu</span>
             <X className="w-4 h-4 text-white" />
           </div>
-          <Menu className={cn(
-            "absolute w-4 h-4 text-white transition-opacity",
-            isMobileMenuOpen ? "opacity-0" : "opacity-100"
-          )} />
         </button>
 
 
