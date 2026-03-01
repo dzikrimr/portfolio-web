@@ -10,11 +10,7 @@ export const TimelineSection = () => {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const [imageLoading, setImageLoading] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-
-  const visibleCount = 5;
+  const [imageLoading, setImageLoading] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     getExperiences().then(setExperiences);
@@ -55,7 +51,7 @@ export const TimelineSection = () => {
 
             <div 
               className={cn(
-                "p-2 md:p-4 space-y-1 font-mono overflow-y-auto overflow-x-hidden max-h-[380px]",
+                "p-2 md:p-4 space-y-1 font-mono overflow-y-auto overflow-x-hidden max-h-[400px]",
                 "scrollbar-thin",
                 "[&::-webkit-scrollbar]:w-1.5",
                 "[&::-webkit-scrollbar-track]:bg-transparent",
@@ -67,7 +63,7 @@ export const TimelineSection = () => {
               )}
               data-lenis-prevent
             >
-              {experiences.slice(0, visibleCount).map((exp, index) => (
+              {experiences.map((exp, index) => (
                 <div
                   key={exp.id || `${exp.year}-${index}`}
                   data-aos="fade-left"
@@ -216,12 +212,6 @@ export const TimelineSection = () => {
                   </div>
                 </div>
               ))}
-
-              {experiences.length > visibleCount && (
-                <div className="px-4 py-2 flex items-center gap-3 opacity-40">
-                  <span className="text-xs text-primary/50">+{experiences.length - visibleCount} more items...</span>
-                </div>
-              )}
 
               <div className="px-4 py-2 flex items-center gap-3 opacity-40">
                 <span className="text-xs text-primary/50">$</span>
