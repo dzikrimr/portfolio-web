@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import AOS from 'aos';
-import 'aos/dist/aos.css';
 import { FloatingNavbar } from '@/components/FloatingNavbar';
 import { FloatingSocials } from '@/components/FloatingSocials';
 import { StarBackground } from '@/components/StarBackground';

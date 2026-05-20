@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dzikri Murtadlo",
-  description: "Build with hearts",
+  description:  "Portfolio website of Dzikri Murtadlo, showcasing web development, mobile apps, AI projects, and software engineering experience.",
   viewport: "width=device-width, initial-scale=1",
 };
 
