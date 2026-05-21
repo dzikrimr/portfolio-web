@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Sparkles, Smartphone, Code2, Globe } from "lucide-react";
 import { motion } from "framer-motion";
-import DecryptedText from "@/components/DecryptedText";
 import { cn } from "@/lib/utils";
 
 function useIsMobile() {
@@ -39,30 +38,24 @@ export const AboutSection = () => {
     <section id="about" className="py-20 md:py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
         
-
+        {/* Left: Minimal headline + second description */}
         <div className="space-y-6 z-10">
-          <div className="inline-block border-l-2 border-primary pl-4">
-            <DecryptedText text="THE DEVELOPER" animateOn="view" speed={80} className="text-xs uppercase tracking-[0.5em] text-muted-foreground" />
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground leading-tight">
-            <DecryptedText text="INTELLIGENT CODE" animateOn="view" speed={50} />
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground leading-tight" style={{ fontFamily: "var(--font-display)" }}>
+            INTELLIGENT CODE
             <br />
-            <DecryptedText text="SEAMLESS MOBILITY" animateOn="view" speed={60} className="text-muted-foreground/50" />
+            <span className="text-muted-foreground/50">SEAMLESS MOBILITY</span>
           </h2>
-          <div className="max-w-md text-muted-foreground leading-relaxed space-y-4">
-            <div className="text-sm md:text-base">
-              <DecryptedText text="I am a software engineer focused on Artificial Intelligence, Backend Systems, and Mobile Development. I build scalable services and intelligent applications that don't just execute commands, but learn, adapt, and perform reliably in production environments." animateOn="view" speed={30} maxIterations={10} sequential={true} />
-            </div>
-            <div className="text-sm md:text-base">
-              <DecryptedText text="My expertise spans backend architecture, API development, and mobile integration, supported by a versatile stack across web technologies and cloud deployment, with a strong emphasis on clean and maintainable system design." animateOn="view" speed={30} maxIterations={10} sequential={true} />
-            </div>
+          <div className="max-w-md">
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+              My expertise spans backend architecture, API development, and mobile integration, supported by a versatile stack across web technologies and cloud deployment, with a strong emphasis on clean and maintainable system design.
+            </p>
           </div>
+          <div className="w-16 h-px bg-foreground/20" />
         </div>
 
-
+        {/* Right: Stacked Cards */}
         <div className="relative h-[400px] md:h-[500px] flex flex-col items-center justify-center lg:justify-end lg:pr-20 mt-10 lg:mt-0 group/deck">
           
-
           {!isMobile && (
             <div className={cn(
               "absolute bottom-0 lg:right-20 mb-4 transition-all duration-500 tracking-[0.3em] text-[10px] font-bold uppercase",
@@ -90,6 +83,7 @@ export const AboutSection = () => {
                     x: xOffset,
                     zIndex: isSelected ? 100 : index,
                   }}
+                  viewport={{ once: true }}
                   transition={{ type: "spring", stiffness: 260, damping: 25 }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -121,7 +115,6 @@ export const AboutSection = () => {
               );
             })}
           </div>
-
 
           {isMobile && activeIndex === null && (
             <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] text-primary animate-pulse tracking-widest uppercase font-bold">

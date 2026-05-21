@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -25,132 +26,131 @@
 
 @layer base {
   :root {
-    /* Dark Mode - Monochrome Palette */
-    --background: 0 0% 3%;
-    --foreground: 0 0% 95%;
+    /* Dark Mode - Premium Monochrome Palette */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 97%;
 
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 97%;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 97%;
 
-    --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 3%;
+    --primary: 0 0% 97%;
+    --primary-foreground: 0 0% 2%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 97%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
 
-    --accent: 0 0% 18%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 97%;
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive-foreground: 0 0% 97%;
 
-    --border: 0 0% 14%;
-    --input: 0 0% 14%;
-    --ring: 0 0% 45%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 0 0% 40%;
 
     --radius: 0.5rem;
 
-    /* Custom gray scale */
-    --gray-50: 0 0% 96%;
-    --gray-100: 0 0% 88%;
-    --gray-200: 0 0% 75%;
-    --gray-300: 0 0% 60%;
+    /* Monochrome gray scale */
+    --gray-50: 0 0% 97%;
+    --gray-100: 0 0% 90%;
+    --gray-200: 0 0% 78%;
+    --gray-300: 0 0% 62%;
     --gray-400: 0 0% 45%;
-    --gray-500: 0 0% 35%;
-    --gray-600: 0 0% 25%;
-    --gray-700: 0 0% 18%;
-    --gray-800: 0 0% 10%;
-    --gray-900: 0 0% 5%;
+    --gray-500: 0 0% 32%;
+    --gray-600: 0 0% 22%;
+    --gray-700: 0 0% 15%;
+    --gray-800: 0 0% 8%;
+    --gray-900: 0 0% 4%;
 
     /* Glass effect */
-    --glass-bg: 0 0% 8% / 0.8;
-    --glass-border: 0 0% 100% / 0.08;
+    --glass-bg: 0 0% 6% / 0.85;
+    --glass-border: 0 0% 100% / 0.06;
 
-    /* Typography - Monospace */
+    /* Typography */
     --font-mono: "Space Mono", "Courier New", monospace;
+    --font-display: "Unbounded", sans-serif;
 
-    /* Shadows */
-    --shadow-soft: 0 4px 24px hsl(0 0% 0% / 0.4);
-    --shadow-card: 0 8px 40px hsl(0 0% 0% / 0.5);
-    --shadow-float: 0 24px 50px hsl(0 0% 0% / 0.6);
-    --shadow-glow: 0 0 80px hsl(0 0% 100% / 0.03);
+    /* Shadows - deeper, more dramatic */
+    --shadow-soft: 0 4px 24px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 8px 40px hsl(0 0% 0% / 0.6);
+    --shadow-float: 0 24px 50px hsl(0 0% 0% / 0.7);
+    --shadow-glow: 0 0 100px hsl(0 0% 100% / 0.02);
 
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 88%;
-    --sidebar-primary: 0 0% 95%;
-    --sidebar-primary-foreground: 0 0% 3%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 14%;
-    --sidebar-ring: 0 0% 45%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 0 0% 97%;
+    --sidebar-primary-foreground: 0 0% 2%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 97%;
+    --sidebar-border: 0 0% 12%;
+    --sidebar-ring: 0 0% 40%;
   }
 
   /* Light Mode */
   .light {
     --background: 0 0% 98%;
-    --foreground: 0 0% 8%;
+    --foreground: 0 0% 5%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
+    --card-foreground: 0 0% 5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 0 0% 5%;
 
-    --primary: 0 0% 8%;
+    --primary: 0 0% 5%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 8%;
+    --secondary: 0 0% 93%;
+    --secondary-foreground: 0 0% 5%;
 
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 42%;
 
-    --accent: 0 0% 94%;
-    --accent-foreground: 0 0% 8%;
+    --accent: 0 0% 93%;
+    --accent-foreground: 0 0% 5%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 88%;
-    --input: 0 0% 88%;
-    --ring: 0 0% 55%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 0 0% 50%;
 
-    /* Custom gray scale - inverted for light */
-    --gray-50: 0 0% 8%;
-    --gray-100: 0 0% 15%;
-    --gray-200: 0 0% 25%;
-    --gray-300: 0 0% 40%;
+    /* Inverted grays for light */
+    --gray-50: 0 0% 5%;
+    --gray-100: 0 0% 12%;
+    --gray-200: 0 0% 22%;
+    --gray-300: 0 0% 38%;
     --gray-400: 0 0% 55%;
-    --gray-500: 0 0% 65%;
-    --gray-600: 0 0% 75%;
-    --gray-700: 0 0% 85%;
-    --gray-800: 0 0% 92%;
-    --gray-900: 0 0% 96%;
+    --gray-500: 0 0% 68%;
+    --gray-600: 0 0% 78%;
+    --gray-700: 0 0% 88%;
+    --gray-800: 0 0% 94%;
+    --gray-900: 0 0% 97%;
 
-    /* Glass effect - light */
-    --glass-bg: 0 0% 100% / 0.8;
-    --glass-border: 0 0% 0% / 0.06;
+    --glass-bg: 0 0% 100% / 0.85;
+    --glass-border: 0 0% 0% / 0.05;
 
-    /* Shadows - light */
-    --shadow-soft: 0 4px 24px hsl(0 0% 0% / 0.08);
-    --shadow-card: 0 8px 40px hsl(0 0% 0% / 0.1);
-    --shadow-float: 0 24px 50px hsl(0 0% 0% / 0.12);
-    --shadow-glow: 0 0 80px hsl(0 0% 0% / 0.03);
+    --shadow-soft: 0 4px 24px hsl(0 0% 0% / 0.06);
+    --shadow-card: 0 8px 40px hsl(0 0% 0% / 0.08);
+    --shadow-float: 0 24px 50px hsl(0 0% 0% / 0.1);
+    --shadow-glow: 0 0 80px hsl(0 0% 0% / 0.02);
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 15%;
-    --sidebar-primary: 0 0% 8%;
+    --sidebar-foreground: 0 0% 12%;
+    --sidebar-primary: 0 0% 5%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 94%;
-    --sidebar-accent-foreground: 0 0% 8%;
-    --sidebar-border: 0 0% 88%;
-    --sidebar-ring: 0 0% 55%;
+    --sidebar-accent: 0 0% 93%;
+    --sidebar-accent-foreground: 0 0% 5%;
+    --sidebar-border: 0 0% 85%;
+    --sidebar-ring: 0 0% 50%;
   }
 }
 

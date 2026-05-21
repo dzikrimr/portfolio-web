@@ -183,7 +183,7 @@ export const ContactSection = () => {
 
   return (
     <section id="contact" className="relative py-20 md:py-24 px-4">
-      <div className="pb-12 text-center" data-aos="fade-up">
+      <div className="pb-12 text-center">
         <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
           Contact
         </span>
@@ -196,10 +196,7 @@ export const ContactSection = () => {
       </div>
 
       <div className="flex justify-center px-4">
-        <div
-          className="relative w-full max-w-[340px] h-[500px] sm:h-[580px]"
-          data-aos="fade-up"
-        >
+        <div className="relative w-full max-w-[340px] h-[500px] sm:h-[580px]">
           <div className="relative h-full rounded-[2.5rem] border-[6px] border-foreground/90 bg-background shadow-2xl">
             <div className="relative h-full rounded-[2rem] overflow-hidden bg-card/50 flex flex-col">
               <div className="h-10 bg-card/80 flex items-center justify-center px-5 shrink-0 relative">
