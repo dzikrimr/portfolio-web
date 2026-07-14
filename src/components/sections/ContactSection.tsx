@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { Reveal } from "@/components/motion/Reveal";
 
 type Step = "name" | "email" | "message" | "done";
 
@@ -183,17 +184,18 @@ export const ContactSection = () => {
 
   return (
     <section id="contact" className="relative py-20 md:py-24 px-4">
-      <div className="pb-12 text-center">
-        <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          Contact
-        </span>
-        <h2 className="text-3xl md:text-4xl font-bold mt-3 text-foreground tracking-tight">
-          SAY HELLO
+      <Reveal direction="up" className="pb-12 text-center">
+        <span className="eyebrow">Contact</span>
+        <h2
+          className="text-3xl md:text-4xl font-bold mt-3 text-foreground tracking-tight"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          Say Hello
         </h2>
-        <p className="text-xs text-muted-foreground/60 mt-4 max-w-xs mx-auto">
+        <p className="text-sm text-muted-foreground leading-relaxed mt-4 max-w-xs mx-auto">
           Drop me a message and I'll get back to you soon
         </p>
-      </div>
+      </Reveal>
 
       <div className="flex justify-center px-4">
         <div className="relative w-full max-w-[340px] h-[500px] sm:h-[580px]">

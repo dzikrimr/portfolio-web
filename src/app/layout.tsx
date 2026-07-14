@@ -1,23 +1,35 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontDisplay = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
-  display: 'swap',
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const fontMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Dzikri Murtadlo",
-  description:  "Portfolio website of Dzikri Murtadlo, showcasing web development, mobile apps, AI projects, and software engineering experience.",
-  viewport: "width=device-width, initial-scale=1",
+  description:
+    "Portfolio website of Dzikri Murtadlo, showcasing web development, mobile apps, AI projects, and software engineering experience.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -28,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${fontSans.variable} ${fontDisplay.variable} ${fontMono.variable} antialiased`}
       >
         {children}
       </body>

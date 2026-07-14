@@ -106,7 +106,7 @@ export const TimelineSection = () => {
       <div className="max-w-3xl mx-auto">
         <div ref={headerRef} className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
-            EXPERIENCE
+            Experience
           </h2>
         </div>
 

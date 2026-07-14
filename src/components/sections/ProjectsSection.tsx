@@ -134,9 +134,9 @@ export const ProjectsSection = () => {
 
       <div ref={headerRef} className="text-center mb-12">
         <h2 className="text-4xl md:text-6xl font-bold tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
-          SELECTED PROJECTS
+          Selected Projects
         </h2>
-        <p className="mt-4 text-sm text-muted-foreground max-w-md mx-auto">
+        <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-md mx-auto">
           A curated showcase of my best work
         </p>
       </div>
@@ -171,11 +171,11 @@ export const ProjectsSection = () => {
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex flex-wrap gap-1.5 mb-2.5">
                     {project.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 text-[8px] uppercase tracking-wider bg-accent/50 rounded text-foreground/80 border border-border/30">{tag}</span>
+                      <span key={tag} className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-accent/50 rounded text-foreground/80 border border-border/30">{tag}</span>
                     ))}
                   </div>
-                  <h3 className="text-base md:text-lg font-bold text-foreground mb-1.5 tracking-tight">{project.title}</h3>
-                  <p className="text-[11px] text-muted-foreground mb-4 leading-relaxed flex-1">{truncateText(project.description, 100)}</p>
+                  <h3 className="text-lg md:text-xl font-bold text-foreground mb-1.5 tracking-tight">{project.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed flex-1">{truncateText(project.description, 110)}</p>
                   
                   <div className="flex gap-2">
                     <Dialog onOpenChange={(open) => { if (!open) { setSelectedProject(null); setCurrentImageIndex(0); } }}>

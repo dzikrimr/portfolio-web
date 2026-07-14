@@ -17,17 +17,18 @@ export default function PrivateRepoPage() {
         </div>
 
         <div className="space-y-3">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight font-mono">
+          <span className="eyebrow">Access Restricted</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
             Private Repository
           </h1>
-          <p className="text-muted-foreground text-lg font-mono">
+          <p className="text-muted-foreground text-lg">
             Sorry, this repository is private
           </p>
         </div>
 
         <div className="glass-card rounded-xl p-8 space-y-6 hover-lift">
-          <p className="text-sm text-muted-foreground leading-relaxed font-mono">
-            This repository is private and not publicly accessible. 
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            This repository is private and not publicly accessible.
             Please contact the owner for permission to view the code.
           </p>
           
@@ -44,7 +45,7 @@ export default function PrivateRepoPage() {
 
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 font-mono hover-lift"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 hover-lift"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Portfolio

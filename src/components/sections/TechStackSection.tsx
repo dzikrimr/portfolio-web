@@ -90,9 +90,9 @@ export const TechStackSection = () => {
       <div className="max-w-4xl mx-auto px-6">
         <div ref={headerRef} className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
-            TECH STACK
+            Tech Stack
           </h2>
-          <p className="mt-4 text-sm text-muted-foreground max-w-md mx-auto">
+          <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed max-w-md mx-auto">
             Technologies I work with most confidently
           </p>
         </div>

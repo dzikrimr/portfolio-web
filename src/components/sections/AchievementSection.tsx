@@ -94,8 +94,8 @@ export const AchievementSection = () => {
 
             <div className="relative z-10 max-w-4xl mx-auto w-full px-4">
                 <div ref={headerRef} className="text-center mb-16">
-                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight" style={{ fontFamily: "var(--font-display)" }}>FLIGHT LOGS</h2>
-                    <p className="mt-4 text-sm text-muted-foreground max-w-lg mx-auto">A chronological record of competitions across the galaxy.</p>
+                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight" style={{ fontFamily: "var(--font-display)" }}>Flight Logs</h2>
+                    <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-lg mx-auto">A chronological record of competitions across the galaxy.</p>
                 </div>
 
                 <div className="relative pl-8 md:pl-0">
@@ -127,12 +127,12 @@ export const AchievementSection = () => {
 
                                             <div className={cn("relative flex flex-col gap-2", isEven ? "md:items-end" : "md:items-start")}>
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <span className={cn("text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border", styles.bg, styles.color, styles.border)}>{item.rank}</span>
-                                                    <span className="text-xs text-muted-foreground">{formatDate(item.date)}</span>
+                                                    <span className={cn("text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border", styles.bg, styles.color, styles.border)}>{item.rank}</span>
+                                                    <span className="text-xs font-mono text-muted-foreground">{formatDate(item.date)}</span>
                                                 </div>
-                                                <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">{item.title}</h3>
-                                                <p className="text-sm text-primary/80 font-medium">{item.event}</p>
-                                                <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{item.description}</p>
+                                                <h3 className="text-lg md:text-xl font-bold text-foreground group-hover:text-primary transition-colors">{item.title}</h3>
+                                                <p className="text-sm md:text-base text-primary/80 font-medium">{item.event}</p>
+                                                <p className="text-sm text-muted-foreground line-clamp-2 mt-1 leading-relaxed">{item.description}</p>
                                             </div>
                                         </div>
                                     </div>

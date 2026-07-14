@@ -108,7 +108,7 @@ export const FloatingNavbar = () => {
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 className={cn(
-                  "relative flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300",
+                  "relative flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300",
                   isActive ? "text-white" : "text-white/40 hover:text-white/70"
                 )}
               >
@@ -150,7 +150,7 @@ export const FloatingNavbar = () => {
             "absolute inset-0 flex items-center justify-between px-6 transition-all duration-300",
             isMobileMenuOpen ? "opacity-100" : "opacity-0 invisible"
           )}>
-            <span className="text-[10px] font-bold tracking-widest text-white/70 uppercase">Menu</span>
+            <span className="font-mono text-[10px] font-bold tracking-widest text-white/70 uppercase">Menu</span>
             <X className="w-4 h-4 text-white" />
           </div>
         </button>
@@ -171,7 +171,7 @@ export const FloatingNavbar = () => {
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
                   className={cn(
-                    "flex items-center gap-3 px-6 py-4 rounded-[18px] text-[10px] uppercase tracking-widest font-bold transition-all",
+                    "flex items-center gap-3 px-6 py-4 rounded-[18px] font-mono text-[10px] uppercase tracking-widest font-bold transition-all",
                     isActive ? "bg-white/10 text-white" : "text-white/40"
                   )}
                 >

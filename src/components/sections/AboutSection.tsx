@@ -1,127 +1,93 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import { Sparkles, Smartphone, Code2, Globe } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { Sparkles, Smartphone, Server, type LucideIcon } from "lucide-react";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { cn } from "@/lib/utils";
 
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia("(max-width: 768px)");
-    const onChange = () => setIsMobile(mql.matches);
-    mql.addEventListener("change", onChange);
-    setIsMobile(mql.matches);
-    return () => mql.removeEventListener("change", onChange);
-  }, []);
-  return isMobile;
+interface Skill {
+  icon: LucideIcon;
+  label: string;
+  description: string;
 }
 
-const skills = [
-  { icon: Sparkles, label: "Artificial Intel", description: "Specializing in LLM integration, Neural Networks, and AI-driven automation." },
-  { icon: Smartphone, label: "Mobile Systems", description: "Crafting high-performance native and cross-platform mobile applications." },
-  { icon: Code2, label: "Web Engineering", description: "Building scalable full-stack web architectures with modern technologies." },
-  { icon: Globe, label: "Blockchain", description: "Experience in decentralized protocols and smart contract integration." },
+const skills: Skill[] = [
+  { icon: Server, label: "Backend Systems", description: "Scalable APIs, services, and databases with clean architecture." },
+  { icon: Sparkles, label: "Artificial Intel", description: "LLM integration, neural networks, and AI-driven automation." },
+  { icon: Smartphone, label: "Mobile Systems", description: "High-performance native and cross-platform mobile apps." },
 ];
 
-export const AboutSection = () => {
-  const isMobile = useIsMobile();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    const handleClickOutside = () => setActiveIndex(null);
-    window.addEventListener("click", handleClickOutside);
-    return () => window.removeEventListener("click", handleClickOutside);
-  }, []);
+const FlipCard = ({ skill }: { skill: Skill }) => {
+  const [flipped, setFlipped] = useState(false);
+  const Icon = skill.icon;
 
   return (
-    <section id="about" className="py-20 md:py-24 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
-        
-        {/* Left: Minimal headline + second description */}
-        <div className="space-y-6 z-10">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground leading-tight" style={{ fontFamily: "var(--font-display)" }}>
-            INTELLIGENT CODE
-            <br />
-            <span className="text-muted-foreground/50">SEAMLESS MOBILITY</span>
+    <button
+      type="button"
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+      onClick={() => setFlipped((v) => !v)}
+      className="group perspective-1000 w-full max-w-[240px] aspect-[3/4] focus:outline-none"
+      aria-label={skill.label}
+    >
+      <div
+        className={cn(
+          "relative w-full h-full preserve-3d transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          flipped ? "[transform:rotateY(180deg)]" : ""
+        )}
+      >
+        {/* Front — icon only */}
+        <div className="absolute inset-0 backface-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-card/90 to-background/70 backdrop-blur-xl flex flex-col items-center justify-center gap-4 shadow-2xl">
+          <Icon className="w-12 h-12 md:w-14 md:h-14 text-foreground/70 transition-transform duration-500 group-hover:scale-110" />
+          <span className="eyebrow text-muted-foreground/60">Hover</span>
+        </div>
+
+        {/* Back — title + description */}
+        <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)] rounded-2xl border border-white/15 bg-gradient-to-br from-card to-background/90 backdrop-blur-xl flex flex-col items-center justify-center text-center gap-3 p-6 shadow-2xl">
+          <Icon className="w-8 h-8 text-foreground mb-1" />
+          <h3
+            className="text-xl md:text-2xl font-bold tracking-tight text-foreground"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {skill.label}
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {skill.description}
+          </p>
+        </div>
+      </div>
+    </button>
+  );
+};
+
+export const AboutSection = () => {
+  return (
+    <section id="about" className="py-20 md:py-28 px-6 overflow-hidden">
+      <div className="max-w-6xl mx-auto flex flex-col items-center">
+        <Reveal direction="up" className="text-center mb-14 md:mb-16">
+          <span className="eyebrow">What I Do</span>
+          <h2
+            className="mt-4 text-3xl md:text-5xl font-bold tracking-tight text-foreground leading-tight"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Areas of Expertise
           </h2>
-          <div className="max-w-md">
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-              My expertise spans backend architecture, API development, and mobile integration, supported by a versatile stack across web technologies and cloud deployment, with a strong emphasis on clean and maintainable system design.
-            </p>
-          </div>
-          <div className="w-16 h-px bg-foreground/20" />
-        </div>
+        </Reveal>
 
-        {/* Right: Stacked Cards */}
-        <div className="relative h-[400px] md:h-[500px] flex flex-col items-center justify-center lg:justify-end lg:pr-20 mt-10 lg:mt-0 group/deck">
-          
-          {!isMobile && (
-            <div className={cn(
-              "absolute bottom-0 lg:right-20 mb-4 transition-all duration-500 tracking-[0.3em] text-[10px] font-bold uppercase",
-              activeIndex !== null ? "opacity-0 translate-y-4" : "opacity-40 translate-y-0 text-primary"
-            )}>
-              Click a card to expand
-            </div>
-          )}
+        <Stagger
+          gap={0.1}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6 w-full max-w-3xl place-items-center"
+        >
+          {skills.map((skill) => (
+            <StaggerItem key={skill.label} className="w-full flex justify-center">
+              <FlipCard skill={skill} />
+            </StaggerItem>
+          ))}
+        </Stagger>
 
-          <div className="relative w-full h-full flex items-center justify-center lg:justify-end">
-            {skills.map((skill, index) => {
-              const isSelected = activeIndex === index;
-              const rotation = isSelected ? 0 : (index - (skills.length - 1) / 2) * (isMobile ? 10 : 15);
-              const xOffset = isSelected ? 0 : (index - (skills.length - 1) / 2) * (isMobile ? 35 : 45);
-              const yOffset = isSelected ? -50 : 0;
-
-              return (
-                <motion.div
-                  key={skill.label}
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{
-                    opacity: 1,
-                    y: yOffset,
-                    rotate: rotation,
-                    x: xOffset,
-                    zIndex: isSelected ? 100 : index,
-                  }}
-                  viewport={{ once: true }}
-                  transition={{ type: "spring", stiffness: 260, damping: 25 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveIndex(isSelected ? null : index);
-                  }}
-                  className={cn(
-                    "group absolute flex flex-col justify-between border border-white/10 shadow-2xl cursor-pointer origin-bottom transition-colors duration-300",
-                    "bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-2xl rounded-2xl p-6 md:p-8",
-                    "w-44 h-64 md:w-52 md:h-72",
-                    isSelected ? "border-primary/50 shadow-primary/20" : "hover:border-primary/30"
-                  )}
-                >
-                  <div className="w-10 h-10 md:w-12 md:h-12 flex items-start justify-start">
-                    <skill.icon className={cn(
-                      "w-8 h-8 md:w-10 md:h-10 transition-all duration-300",
-                      isSelected ? "text-primary opacity-100 scale-110" : "text-foreground opacity-60"
-                    )} />
-                  </div>
-
-                  <div className="space-y-2 md:space-y-3 pointer-events-none">
-                    <h3 className={cn("font-bold text-xl md:text-2xl tracking-tight transition-colors duration-300", isSelected ? "text-primary" : "text-foreground")}>
-                      {skill.label}
-                    </h3>
-                    <p className={cn("text-[9px] md:text-[10px] leading-relaxed uppercase tracking-[0.15em] font-medium transition-opacity duration-300", isSelected ? "opacity-100" : "opacity-60")}>
-                      {skill.description}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {isMobile && activeIndex === null && (
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] text-primary animate-pulse tracking-widest uppercase font-bold">
-              Tap to expand
-            </div>
-          )}
-        </div>
+        <p className="mt-10 eyebrow text-muted-foreground/50">
+          Hover or tap a card to flip
+        </p>
       </div>
     </section>
   );
