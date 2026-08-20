@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const fontSans = Inter({
+const fontSans = JetBrains_Mono({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -18,6 +19,7 @@ const fontDisplay = Space_Grotesk({
 const fontMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 

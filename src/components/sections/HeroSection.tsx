@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import portraitImage from "@/assets/portrait.png";
-import { Magnetic } from "@/components/motion/MagneticButton";
 import { TiltCard } from "@/components/motion/TiltCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -130,8 +129,7 @@ export const HeroSection = () => {
             </div>
 
             <div ref={ctaRef} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-              <Magnetic
-                as="a"
+              <a
                 href={process.env.CV_DOWNLOAD_URL || "#"}
                 className="group relative px-8 py-4 overflow-hidden rounded-full inline-block"
               >
@@ -139,9 +137,8 @@ export const HeroSection = () => {
                 <span className="relative font-mono text-xs uppercase tracking-[0.2em] font-semibold text-background">
                   Download CV
                 </span>
-              </Magnetic>
-              <Magnetic
-                as="a"
+              </a>
+              <a
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
@@ -153,7 +150,7 @@ export const HeroSection = () => {
                 <span className="relative font-mono text-xs uppercase tracking-[0.2em] font-semibold text-foreground group-hover:text-background transition-colors duration-300">
                   Get in Touch
                 </span>
-              </Magnetic>
+              </a>
             </div>
           </div>
 

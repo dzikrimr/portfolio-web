@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
+const ROLL_IN_MS = 2000;
+const HOLD_MS = 2000;
+const ROLL_OUT_MS = 2000;
+const FADE_OUT_MS = 500;
+
 export const IntroAnimation = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
@@ -9,11 +14,11 @@ export const IntroAnimation = () => {
   useEffect(() => {
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 3000);
+    }, ROLL_IN_MS + HOLD_MS + ROLL_OUT_MS);
 
     const hideTimer = setTimeout(() => {
       setIsVisible(false);
-    }, 3500);
+    }, ROLL_IN_MS + HOLD_MS + ROLL_OUT_MS + FADE_OUT_MS);
 
     return () => {
       clearTimeout(exitTimer);
@@ -25,12 +30,13 @@ export const IntroAnimation = () => {
 
   return (
     <div className={`intro-overlay ${isExiting ? 'exiting' : ''}`}>
-      <div className="intro-background" />
-      <div className="intro-favicon-container">
-        <img 
-          src="/favicon.ico" 
-          alt="Logo" 
+      <div className="intro-logo-track">
+        <img
+          src="/favicon.ico"
+          alt="Logo"
           className="intro-favicon"
+          fetchPriority="high"
+          decoding="sync"
         />
       </div>
     </div>

@@ -1,139 +1,83 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
-import Lenis from 'lenis';
 
+const ORBS = [
+  { size: 260, topPct: 6, left: '10%', duration: '14s', delay: '0s', opacity: 0.14, blur: 40, parallax: 0.18 },
+  { size: 220, topPct: 18, left: '72%', duration: '16s', delay: '-6s', opacity: 0.12, blur: 36, parallax: 0.32 },
+  { size: 300, topPct: 38, left: '30%', duration: '18s', delay: '-12s', opacity: 0.1, blur: 44, parallax: 0.12 },
+  { size: 190, topPct: 52, left: '85%', duration: '13s', delay: '-18s', opacity: 0.13, blur: 32, parallax: 0.4 },
+  { size: 280, topPct: 68, left: '15%', duration: '17s', delay: '-24s', opacity: 0.11, blur: 42, parallax: 0.2 },
+  { size: 210, topPct: 80, left: '60%', duration: '15s', delay: '-4s', opacity: 0.12, blur: 34, parallax: 0.28 },
+  { size: 240, topPct: 30, left: '52%', duration: '19s', delay: '-16s', opacity: 0.1, blur: 38, parallax: 0.15 },
+  { size: 180, topPct: 92, left: '35%', duration: '12s', delay: '-10s', opacity: 0.13, blur: 30, parallax: 0.36 },
+];
+
+// Each orb is rendered twice, offset by one viewport height apart, so as one
+// copy drifts out past the top/bottom edge, its twin is already sliding into
+// view from the opposite edge — no visible pop/jump at the wrap point.
 export const StarBackground = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const orbWrapperRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches) return;
 
     let animationFrameId: number;
-    let stars: { 
-      x: number; y: number; size: number; opacity: number; 
-      baseSpeed: number; twinkleSpeed: number; twinklePhase: number;
-      scrollBoost: number;
-    }[] = [];
-    let mouseX = 0;
-    let mouseY = 0;
-    const mouseInfluence = 100;
-    const lenis = new Lenis({ smoothWheel: true });
-    let lenisVelocity = 0; // tracks Lenis's current velocity
 
-    const resizeCanvas = () => {
-      const width = document.documentElement.clientWidth;
-      const height = document.documentElement.clientHeight;
-      canvas!.width = width;
-      canvas!.height = height;
-      initStars();
-    };
+    const animate = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
 
-    const initStars = () => {
-      const starCount = Math.floor((canvas!.width * canvas!.height) / 6000);
-      stars = [];
-      
-      for (let i = 0; i < starCount; i++) {
-        stars.push({
-          x: Math.random() * canvas!.width,
-          y: Math.random() * canvas!.height,
-          size: Math.random() * 2 + 0.5,
-          opacity: Math.random() * 0.5 + 0.3,
-          baseSpeed: Math.random() * 0.3 + 0.1,
-          twinkleSpeed: Math.random() * 0.03 + 0.01,
-          twinklePhase: Math.random() * Math.PI * 2,
-          scrollBoost: 0,
-        });
-      }
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-
-    const animate = (time: number) => {
-      // Run Lenis and capture its velocity
-      lenis.raf(time);
-      lenisVelocity = lenis.velocity;
-
-      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
-
-      stars.forEach((star) => {
-        // Twinkle
-        star.twinklePhase += star.twinkleSpeed;
-        const twinkle = Math.sin(star.twinklePhase) * 0.25 + 0.75;
-        
-        // Base upward movement
-        let totalSpeed = star.baseSpeed;
-
-        // Scroll boost follows Lenis velocity proportionally
-        // abs(velocity) gives us a smooth curve that matches scroll deceleration
-        const boostTarget = Math.abs(lenisVelocity) * 0.8;
-        star.scrollBoost += (boostTarget - star.scrollBoost) * 0.15; // smooth lerp
-        totalSpeed += star.scrollBoost;
-
-        star.y -= totalSpeed;
-        if (star.y < -10) {
-          star.y = canvas!.height + 10;
-          star.x = Math.random() * canvas!.width;
-        }
-
-        // Mouse glow
-        const dx = star.x - mouseX;
-        const dy = star.y - mouseY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        let glowEffect = 0;
-        if (distance < mouseInfluence) {
-          glowEffect = 1 - (distance / mouseInfluence);
-        }
-
-        const currentSize = star.size + (glowEffect * 2);
-        const currentOpacity = star.opacity * twinkle + (glowEffect * 0.5);
-
-        if (glowEffect > 0) {
-          const gradient = ctx!.createRadialGradient(star.x, star.y, 0, star.x, star.y, currentSize * 5);
-          gradient.addColorStop(0, `rgba(255, 255, 255, ${currentOpacity})`);
-          gradient.addColorStop(0.5, `rgba(255, 255, 255, ${currentOpacity * 0.5})`);
-          gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
-          ctx!.beginPath();
-          ctx!.arc(star.x, star.y, currentSize * 5, 0, Math.PI * 2);
-          ctx!.fillStyle = gradient;
-          ctx!.fill();
-        }
-
-        ctx!.beginPath();
-        ctx!.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
-        ctx!.fill();
+      orbWrapperRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const orbIndex = Math.floor(idx / 2);
+        const isTwin = idx % 2 === 1;
+        const rawOffset = -scrollY * ORBS[orbIndex].parallax;
+        const wrapped = ((rawOffset % viewportHeight) + viewportHeight) % viewportHeight;
+        const twinShift = isTwin ? -viewportHeight : 0;
+        el.style.transform = `translate3d(0, ${wrapped + twinShift}px, 0)`;
       });
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    resizeCanvas();
     animationFrameId = requestAnimationFrame(animate);
 
-    window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('mousemove', handleMouseMove);
-
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
-      lenis.destroy();
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.7 }}
-    />
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      {ORBS.flatMap((orb, orbIndex) => (
+        [0, 1].map((twin) => (
+          <div
+            key={`${orbIndex}-${twin}`}
+            ref={(el) => { if (el) orbWrapperRefs.current[orbIndex * 2 + twin] = el; }}
+            className="absolute"
+            style={{
+              width: orb.size,
+              height: orb.size,
+              top: `${orb.topPct}%`,
+              left: orb.left,
+              willChange: 'transform',
+            }}
+          >
+            <div
+              className="w-full h-full rounded-full liquid-orb"
+              style={{
+                opacity: orb.opacity,
+                animationDuration: orb.duration,
+                animationDelay: orb.delay,
+                background: 'radial-gradient(circle, hsl(var(--foreground)) 0%, transparent 70%)',
+                filter: `blur(${orb.blur}px)`,
+              }}
+            />
+          </div>
+        ))
+      ))}
+    </div>
   );
 };

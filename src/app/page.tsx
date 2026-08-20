@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FloatingNavbar } from '@/components/FloatingNavbar';
 import { FloatingSocials } from '@/components/FloatingSocials';
 import { StarBackground } from '@/components/StarBackground';
@@ -25,35 +25,40 @@ gsap.registerPlugin(ScrollTrigger);
 const Index = () => {
   useLenis();
   const mainRef = useRef<HTMLElement>(null);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const frameId = requestAnimationFrame(() => setShowContent(true));
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   return (
     <>
       <IntroAnimation />
-      <div className="h-auto bg-background transition-colors duration-300">
-        <StarBackground />
-        <FloatingNavbar />
-        <div className="hidden md:block">
-          <FloatingSocials />
-          <ThemeToggle />
+      {showContent && (
+        <div className="h-auto bg-background transition-colors duration-300">
+          <StarBackground />
+          <FloatingNavbar />
+          <div className="hidden md:block">
+            <FloatingSocials />
+            <ThemeToggle />
+          </div>
+          <div className="md:hidden">
+            <MobileMenu />
+          </div>
+          <main ref={mainRef}>
+            <HeroSection />
+            <AboutSection />
+            <TechStackSection />
+            <ProjectsSection />
+            <TimelineSection />
+            <AchievementSection />
+            <ContactSection />
+          </main>
+          <Footer />
         </div>
-        <div className="md:hidden">
-          <MobileMenu />
-        </div>
-        <main ref={mainRef}>
-          <HeroSection />
-          <AboutSection />
-          <TechStackSection />
-          <ProjectsSection />
-          <TimelineSection />
-          <AchievementSection />
-          <ContactSection />
-        </main>
-        <Footer />
-      </div>
+      )}
     </>
   );
 };
