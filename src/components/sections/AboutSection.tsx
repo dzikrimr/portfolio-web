@@ -1,25 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, Smartphone, Server, type LucideIcon } from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { cn } from "@/lib/utils";
+import type { AboutSkill } from "@/db/schema";
 
-interface Skill {
-  icon: LucideIcon;
-  label: string;
-  description: string;
-}
+const FALLBACK_ICON: LucideIcon = LucideIcons.Sparkles;
 
-const skills: Skill[] = [
-  { icon: Server, label: "Backend Systems", description: "Scalable APIs, services, and databases with clean architecture." },
-  { icon: Sparkles, label: "Artificial Intel", description: "LLM integration, neural networks, and AI-driven automation." },
-  { icon: Smartphone, label: "Mobile Systems", description: "High-performance native and cross-platform mobile apps." },
-];
+const resolveIcon = (iconName: string): LucideIcon => {
+  const icon = (LucideIcons as unknown as Record<string, LucideIcon>)[iconName];
+  return icon ?? FALLBACK_ICON;
+};
 
-const FlipCard = ({ skill }: { skill: Skill }) => {
+const FlipCard = ({ skill }: { skill: AboutSkill }) => {
   const [flipped, setFlipped] = useState(false);
-  const Icon = skill.icon;
+  const Icon = resolveIcon(skill.iconName);
 
   return (
     <button
@@ -60,7 +57,11 @@ const FlipCard = ({ skill }: { skill: Skill }) => {
   );
 };
 
-export const AboutSection = () => {
+interface AboutSectionProps {
+  skills: AboutSkill[];
+}
+
+export const AboutSection = ({ skills }: AboutSectionProps) => {
   return (
     <section id="about" className="py-20 md:py-28 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto flex flex-col items-center">

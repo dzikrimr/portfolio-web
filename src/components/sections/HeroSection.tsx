@@ -5,10 +5,48 @@ import portraitImage from "@/assets/portrait.png";
 import { TiltCard } from "@/components/motion/TiltCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { SiteSettings, HeroStat } from "@/db/schema";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const HeroSection = () => {
+const SKILL_LABELS = ["BND", "FND", "MOB", "ART"];
+
+const HIGHLIGHT_PHRASES = ["Backend Systems", "Artificial Intelligence", "Mobile Development"];
+
+const renderHighlightedDescription = (text: string) => {
+  const pattern = new RegExp(`(${HIGHLIGHT_PHRASES.join("|")})`, "g");
+  return text.split(pattern).map((part, i) =>
+    HIGHLIGHT_PHRASES.includes(part) ? (
+      <span key={i} className="text-foreground/90">{part}</span>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+};
+
+const StatTooltip = ({ text }: { text: string }) => (
+  <span
+    role="tooltip"
+    className="pointer-events-none absolute bottom-full left-1/2 mb-2 w-max max-w-[220px] -translate-x-1/2 rounded-lg border border-border/50 bg-popover px-3.5 py-2.5 text-center font-mono text-[13px] leading-snug text-popover-foreground opacity-0 shadow-xl transition-opacity duration-200 group-hover/stat:opacity-100 z-30"
+  >
+    {text}
+    <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-popover" />
+  </span>
+);
+
+interface HeroSectionProps {
+  settings: SiteSettings;
+  stats: HeroStat[];
+}
+
+export const HeroSection = ({ settings, stats }: HeroSectionProps) => {
+  const skillScores = stats
+    .filter((stat) => SKILL_LABELS.includes(stat.label))
+    .map((stat) => Number(stat.val));
+  const overallRating = skillScores.length
+    ? Math.round(skillScores.reduce((sum, score) => sum + score, 0) / skillScores.length)
+    : 0;
+
   const heroRef = useRef<HTMLElement>(null);
   const portraitContainerRef = useRef<HTMLDivElement>(null);
   const statsPanelRef = useRef<HTMLDivElement>(null);
@@ -109,28 +147,25 @@ export const HeroSection = () => {
             <div ref={titleRef}>
               <h1 className="hero-title text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-bold tracking-tight leading-[0.92] overflow-hidden">
                 <span className="block" style={{ fontFamily: "var(--font-display)" }}>
-                  {splitChars("Dzikri")}
+                  {splitChars(settings.firstName)}
                 </span>
               </h1>
               <h1 className="hero-title text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-bold tracking-tight leading-[0.92] mt-1 overflow-hidden">
                 <span className="block text-foreground/45" style={{ fontFamily: "var(--font-display)" }}>
-                  {splitChars("Murtadlo")}
+                  {splitChars(settings.lastName)}
                 </span>
               </h1>
             </div>
 
             <div ref={descriptionRef} className="overflow-hidden">
               <p className="text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed">
-                Software engineer focused on{" "}
-                <span className="text-foreground/90">Backend Systems</span>,{" "}
-                <span className="text-foreground/90">Artificial Intelligence</span>, and{" "}
-                <span className="text-foreground/90">Mobile Development</span>. I build scalable services and intelligent applications that don&apos;t just execute commands, but learn, adapt, and perform reliably in production.
+                {renderHighlightedDescription(settings.heroDescription)}
               </p>
             </div>
 
             <div ref={ctaRef} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
               <a
-                href={process.env.CV_DOWNLOAD_URL || "#"}
+                href={settings.cvDownloadUrl || "#"}
                 className="group relative px-8 py-4 overflow-hidden rounded-full inline-block"
               >
                 <span className="absolute inset-0 bg-foreground transition-transform duration-500 group-hover:scale-110" />
@@ -171,8 +206,8 @@ export const HeroSection = () => {
                 {/* Portrait — top zone only, does not reach the stats area */}
                 <div className="absolute inset-x-0 top-0 bottom-[40%] overflow-hidden">
                   <Image
-                    src={portraitImage}
-                    alt="Dzikri Murtadlo"
+                    src={settings.portraitImage || portraitImage}
+                    alt={`${settings.firstName} ${settings.lastName}`}
                     fill
                     priority
                     sizes="(max-width: 768px) 300px, 380px"
@@ -186,8 +221,13 @@ export const HeroSection = () => {
 
               {/* Rating + position (top-left) */}
               <div className="absolute top-[7%] left-[10%] z-20 flex flex-col items-center leading-none">
-                <span className="text-4xl md:text-5xl font-bold text-foreground" style={{ fontFamily: "var(--font-display)" }}>92</span>
-                <span className="font-mono text-[11px] md:text-xs tracking-[0.15em] text-foreground/80 mt-1">BE</span>
+                <span className="group/stat relative text-4xl md:text-5xl font-bold text-foreground cursor-help" style={{ fontFamily: "var(--font-display)" }}>
+                  {overallRating}
+                  <StatTooltip text="OVR adalah rata-rata dari empat kemampuan utama: Backend, Frontend, Mobile, dan AI." />
+                </span>
+                <span className="font-mono text-[11px] md:text-xs tracking-[0.15em] text-foreground/80 mt-1">
+                  {settings.positionBadge}
+                </span>
                 <span className="mt-2 w-7 h-px bg-foreground/30" />
                 {/* Indonesian flag */}
                 <span className="mt-2 flex flex-col w-6 h-4 overflow-hidden rounded-[2px] border border-foreground/20 shadow-sm">
@@ -199,21 +239,18 @@ export const HeroSection = () => {
               {/* Bottom info: name + stats (clean zone, no photo behind) */}
               <div ref={statsPanelRef} className="absolute inset-x-0 bottom-[9%] z-20 px-[14%] flex flex-col items-center">
                 <span className="stat-item text-xl md:text-2xl font-bold tracking-tight text-foreground uppercase" style={{ fontFamily: "var(--font-display)" }}>
-                  Dzikri M.
+                  {settings.firstName} {settings.lastName.charAt(0)}.
                 </span>
                 <span className="stat-item mt-1.5 mb-3 w-full h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent" />
                 <div className="grid grid-cols-2 gap-x-5 gap-y-2 w-full">
-                  {[
-                    ["01", "YRS"],
-                    ["10", "PRJ"],
-                    ["92", "BCK"],
-                    ["85", "AI"],
-                    ["88", "MOB"],
-                    ["90", "SYS"],
-                  ].map(([val, label]) => (
-                    <div key={label} className="stat-item flex items-center justify-center gap-2">
-                      <span className="text-base md:text-lg font-bold text-foreground" style={{ fontFamily: "var(--font-display)" }}>{val}</span>
-                      <span className="font-mono text-[10px] md:text-[11px] tracking-wider text-muted-foreground/80">{label}</span>
+                  {stats.map(({ val, label, description }) => (
+                    <div
+                      key={label}
+                      className="stat-item group/stat relative flex items-center justify-center gap-2 cursor-help"
+                    >
+                      <span className="text-base md:text-xl font-bold text-foreground" style={{ fontFamily: "var(--font-display)" }}>{val}</span>
+                      <span className="font-mono text-[18px] md:text-[19px] tracking-wider text-muted-foreground/80">{label}</span>
+                      <StatTooltip text={description} />
                     </div>
                   ))}
                 </div>

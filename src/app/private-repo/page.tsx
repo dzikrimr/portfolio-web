@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { ArrowLeft, Mail, Lock } from "lucide-react";
+import { getSiteSettings } from "@/app/actions";
 
-export default function PrivateRepoPage() {
-  const contactEmail = process.env.EMAIL_URL;
+export const revalidate = 60;
+
+export default async function PrivateRepoPage() {
+  const settings = await getSiteSettings();
+  const contactEmail = settings.emailUrl;
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
@@ -34,7 +38,7 @@ export default function PrivateRepoPage() {
           
           {contactEmail && (
             <a
-              href={`mailto:${contactEmail}?subject=Repository Access Request&body=Hello,%0D%0A%0D%0AI would like to request access to view the repository code.%0D%0A%0D%0AThank you!`}
+              href={`${contactEmail}?subject=Repository Access Request&body=Hello,%0D%0A%0D%0AI would like to request access to view the repository code.%0D%0A%0D%0AThank you!`}
               className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 font-mono text-sm uppercase tracking-wider hover-lift group"
             >
               <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />

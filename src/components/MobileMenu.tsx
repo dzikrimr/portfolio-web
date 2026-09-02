@@ -2,15 +2,21 @@
 
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Github, Linkedin, Twitter, Mail, Sun, Moon, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Sun, Moon, Menu, X } from 'lucide-react';
 
-const socials = [
-  { icon: Github, href: process.env.GITHUB_URL!, label: 'GitHub' },
-  { icon: Linkedin, href: process.env.LINKEDIN_URL!, label: 'LinkedIn' },
-  { icon: Mail, href: process.env.EMAIL_URL!, label: 'Email' },
-];
+interface MobileMenuProps {
+  githubUrl: string;
+  linkedinUrl: string;
+  emailUrl: string;
+}
 
-export const MobileMenu = () => {
+export const MobileMenu = ({ githubUrl, linkedinUrl, emailUrl }: MobileMenuProps) => {
+  const socials = [
+    { icon: Github, href: githubUrl, label: 'GitHub' },
+    { icon: Linkedin, href: linkedinUrl, label: 'LinkedIn' },
+    { icon: Mail, href: emailUrl, label: 'Email' },
+  ];
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
 

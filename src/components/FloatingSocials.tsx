@@ -1,16 +1,22 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const socials = [
-  { icon: Github, href: process.env.GITHUB_URL!, label: 'GitHub' },
-  { icon: Linkedin, href: process.env.LINKEDIN_URL!, label: 'LinkedIn' },
-  { icon: Mail, href: process.env.EMAIL_URL!, label: 'Email' },
-];
+interface FloatingSocialsProps {
+  githubUrl: string;
+  linkedinUrl: string;
+  emailUrl: string;
+}
 
-export const FloatingSocials = () => {
+export const FloatingSocials = ({ githubUrl, linkedinUrl, emailUrl }: FloatingSocialsProps) => {
+  const socials = [
+    { icon: Github, href: githubUrl, label: 'GitHub' },
+    { icon: Linkedin, href: linkedinUrl, label: 'LinkedIn' },
+    { icon: Mail, href: emailUrl, label: 'Email' },
+  ];
+
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
