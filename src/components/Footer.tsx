@@ -1,6 +1,13 @@
-import Link from "next/link";
+import type { LegalPage } from '@/db/schema';
 
-export const Footer = () => {
+interface FooterProps {
+  legalPages: LegalPage[];
+}
+
+export const Footer = ({ legalPages }: FooterProps) => {
+  const privacy = legalPages.find((p) => p.slug === 'privacy');
+  const terms = legalPages.find((p) => p.slug === 'terms');
+
   return (
     <footer className="py-6 px-6 border-t border-border">
       <div
@@ -12,12 +19,26 @@ export const Footer = () => {
           © {new Date().getFullYear()} All rights reserved.
         </div>
         <div className="flex items-center gap-6">
-          <Link href="/privacy" className="eyebrow hover:text-foreground transition-colors">
-            Privacy
-          </Link>
-          <Link href="/terms" className="eyebrow hover:text-foreground transition-colors">
-            Terms
-          </Link>
+          {privacy && (
+            <a
+              href={privacy.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="eyebrow hover:text-foreground transition-colors"
+            >
+              {privacy.title || 'Privacy'}
+            </a>
+          )}
+          {terms && (
+            <a
+              href={terms.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="eyebrow hover:text-foreground transition-colors"
+            >
+              {terms.title || 'Terms'}
+            </a>
+          )}
         </div>
       </div>
     </footer>

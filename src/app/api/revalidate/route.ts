@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 
-const REVALIDATABLE_PATHS = ['/', '/privacy', '/terms', '/private-repo'] as const;
+const REVALIDATABLE_PATHS = ['/', '/private-repo'] as const;
 
 type RevalidatablePath = (typeof REVALIDATABLE_PATHS)[number];
 

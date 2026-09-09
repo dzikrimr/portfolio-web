@@ -18,7 +18,7 @@ import { IntroAnimation } from '@/components/IntroAnimation';
 import { useLenis } from '@/hooks/use-lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import type { SiteSettings, HeroStat, AboutSkill, TechStack } from '@/db/schema';
+import type { SiteSettings, HeroStat, AboutSkill, TechStack, LegalPage } from '@/db/schema';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,9 +27,10 @@ interface HomeClientProps {
   heroStats: HeroStat[];
   aboutSkills: AboutSkill[];
   techStacks: TechStack[];
+  legalPages: LegalPage[];
 }
 
-export const HomeClient = ({ settings, heroStats, aboutSkills, techStacks }: HomeClientProps) => {
+export const HomeClient = ({ settings, heroStats, aboutSkills, techStacks, legalPages }: HomeClientProps) => {
   useLenis();
   const mainRef = useRef<HTMLElement>(null);
   const [showContent, setShowContent] = useState(false);
@@ -63,7 +64,7 @@ export const HomeClient = ({ settings, heroStats, aboutSkills, techStacks }: Hom
             <AchievementSection />
             <ContactSection />
           </main>
-          <Footer />
+          <Footer legalPages={legalPages} />
         </div>
       )}
     </>

@@ -1,14 +1,15 @@
 import { HomeClient } from '@/components/HomeClient';
-import { getSiteSettings, getHeroStats, getAboutSkills, getTechStacks } from '@/app/actions';
+import { getSiteSettings, getHeroStats, getAboutSkills, getTechStacks, getLegalPages } from '@/app/actions';
 
 export const revalidate = 60;
 
 export default async function Page() {
-  const [settings, stats, skills, stacks] = await Promise.all([
+  const [settings, stats, skills, stacks, legalPages] = await Promise.all([
     getSiteSettings(),
     getHeroStats(),
     getAboutSkills(),
     getTechStacks(),
+    getLegalPages(),
   ]);
 
   return (
@@ -17,6 +18,7 @@ export default async function Page() {
       heroStats={stats}
       aboutSkills={skills}
       techStacks={stacks}
+      legalPages={legalPages}
     />
   );
 }

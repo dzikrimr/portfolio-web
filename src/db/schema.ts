@@ -76,7 +76,7 @@ export const techStacks = pgTable('tech_stacks', {
 export const legalPages = pgTable('legal_pages', {
   slug: text('slug').primaryKey(),
   title: text('title').notNull(),
-  content: text('content').notNull(),
+  url: text('url').notNull().default('#'),
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 

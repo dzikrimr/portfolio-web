@@ -43,7 +43,6 @@ export async function getTechStacks() {
   return await db.select().from(techStacks).orderBy(asc(techStacks.sortOrder));
 }
 
-export async function getLegalPage(slug: string) {
-  const rows = await db.select().from(legalPages).where(eq(legalPages.slug, slug));
-  return rows[0];
+export async function getLegalPages() {
+  return await db.select().from(legalPages);
 }

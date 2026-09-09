@@ -87,13 +87,13 @@ const seed = async () => {
   await db.insert(legalPages).values([
     {
       slug: 'privacy',
-      title: 'Privacy Policy',
-      content: 'This privacy policy is a placeholder. Edit this content from the CMS admin panel.',
+      title: 'Privacy',
+      url: 'https://www.termsfeed.com/live/0126f2e0-5a61-4502-817c-010970cd8e58',
     },
     {
       slug: 'terms',
-      title: 'Terms of Service',
-      content: 'These terms of service are a placeholder. Edit this content from the CMS admin panel.',
+      title: 'Terms',
+      url: 'https://www.termsfeed.com/live/de51afea-4d68-4a7b-9105-faecdfa641f0',
     },
   ]);
 
